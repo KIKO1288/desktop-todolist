@@ -1,0 +1,69 @@
+<!--
+THESIS: A desktop punch list that makes completing work feel like closing a field item; it refuses the generic yellow sticky-note card.
+OWN-WORLD: Gray-green clipboard, warm fibrous form paper, graphite rules, square controls, and muted brick completion marks.
+STORY: See today's load, write the next line, close items, and retrieve finished work without leaving the desktop.
+FIRST VIEWPORT: A functional metal clip/drag grip crowns one ruled sheet; date, handwritten progress, add line, active tasks, and a bottom archive band fill the window.
+FORM: Operate mode; approved composition C, third structural probe, centered clipboard staging; direction seed d60cab3f.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+-->
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>桌面清单</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="clipboard" aria-labelledby="app-title">
+      <header class="window-frame">
+        <div class="clip" aria-hidden="true">
+          <span class="clip-grip"></span>
+        </div>
+        <button class="window-close no-drag" type="button" aria-label="隐藏到系统托盘" title="隐藏到系统托盘">×</button>
+      </header>
+
+      <section class="paper">
+        <div class="paper-heading">
+          <div class="heading-copy">
+            <h1 id="app-title">桌面清单</h1>
+            <time id="today-label"></time>
+          </div>
+          <button id="layer-status" class="layer-status no-drag" type="button" aria-label="桌面层状态" title="已贴在桌面层">
+            <span class="status-dot"></span>
+            <span class="status-cue" aria-hidden="true">!</span>
+          </button>
+        </div>
+
+        <output id="progress-fraction" class="progress-fraction" aria-live="polite">0 / 0</output>
+
+        <form id="add-form" class="add-form" novalidate>
+          <span class="add-mark" aria-hidden="true">＋</span>
+          <label class="sr-only" for="task-input">添加一项任务</label>
+          <input id="task-input" name="task" maxlength="120" autocomplete="off" placeholder="添加一项任务" />
+          <button id="add-button" class="add-button" type="submit">添加</button>
+        </form>
+        <p id="input-error" class="input-error" role="alert" hidden></p>
+
+        <section class="task-region" aria-label="未完成任务">
+          <ul id="active-list" class="task-list"></ul>
+          <div id="empty-state" class="empty-state">
+            <p>清单还是空的。</p>
+            <span>在上面的横线上写下第一件事。</span>
+          </div>
+        </section>
+
+        <section class="archive" aria-labelledby="archive-heading">
+          <button id="archive-toggle" class="archive-toggle" type="button" aria-expanded="false" aria-controls="completed-list">
+            <span class="archive-stamp" aria-hidden="true">✓</span>
+            <span id="archive-heading">已完成 <strong id="completed-count">0</strong> 项</span>
+            <span class="archive-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <ul id="completed-list" class="task-list completed-list" hidden></ul>
+        </section>
+      </section>
+    </main>
+    <script src="./renderer.js"></script>
+  </body>
+</html>

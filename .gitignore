@@ -1,0 +1,10 @@
+node_modules/
+dist/
+dist-fixed/
+.npm-cache/
+.qa-*/
+*.log
+.impeccable/
+.tmp-focus-qa/
+graphify-out/
+qa/

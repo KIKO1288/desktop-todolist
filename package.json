@@ -1,0 +1,45 @@
+{
+  "name": "desktop-todolist-note",
+  "version": "1.0.0",
+  "description": "一张停留在 Windows 桌面层的本地待办便签",
+  "main": "electron/main.js",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "dist": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "43.2.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "local.desktop.todolist",
+    "productName": "桌面清单",
+    "asar": true,
+    "files": [
+      "electron/**/*",
+      "src/**/*",
+      "scripts/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "scripts/attach-desktop.ps1",
+        "to": "scripts/attach-desktop.ps1"
+      }
+    ],
+    "win": {
+      "icon": "assets/app-icon.ico",
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "artifactName": "桌面清单-${version}-portable.${ext}"
+    }
+  }
+}

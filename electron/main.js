@@ -144,13 +144,17 @@ async function showOnDesktop() {
   return queueWindowTransition(async () => {
     if (!mainWindow || mainWindow.isDestroyed()) return { ok: false, message: '便签窗口不可用' };
     clearDesktopReturnTimer();
-    mainWindow.hide();
+    const wasVisible = mainWindow.isVisible();
     const result = await runDesktopBridge(mainWindow, 'Attach');
     if (result.ok) {
       windowMode = 'desktop';
       mainWindow.setSkipTaskbar(true);
       showsInTaskbar = false;
-      mainWindow.showInactive();
+      // Reparent a visible interactive window in place. Hiding it during the
+      // bridge call and showing it again produced a noticeable flash whenever
+      // focus moved to another application. Startup and tray restore still need
+      // an explicit reveal because the window begins hidden in those paths.
+      if (!wasVisible) mainWindow.showInactive();
     }
     sendDesktopStatus(result);
     refreshTrayMenu();
@@ -483,3 +487,4 @@ app.on('activate', () => {
 });
 
 app.on('window-all-closed', () => {});
+

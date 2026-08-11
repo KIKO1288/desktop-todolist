@@ -1,6 +1,6 @@
 {
   "name": "desktop-todolist-note",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "一张停留在 Windows 桌面层的本地待办便签",
   "main": "electron/main.js",
   "author": "",
@@ -36,10 +36,13 @@
       "target": [
         {
           "target": "portable",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         }
       ],
       "artifactName": "桌面清单-${version}-portable.${ext}"
     }
   }
 }
+
